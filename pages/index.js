@@ -1,21 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import factory from "../ethereum/campaignFactory";
 
-export default () => {
-  const [campaigns, setCampaigns] = useState([]);
+export const getServerSideProps = async () => {
+  const deployedCampaigns = await factory.methods.getDeployedCampaigns().call();
+  return { props: { campaigns: deployedCampaigns } };
+};
 
-  const getCampaigns = async () => {
-    const deployedCampaigns = await factory.methods
-      .getDeployedCampaigns()
-      .call();
-
-    console.log(deployedCampaigns);
-    setCampaigns(deployedCampaigns);
-  };
-
-  useEffect(() => {
-    getCampaigns();
-  }, []);
-
-  return <h1>Hello</h1>;
+export default ({ campaigns }) => {
+  return <h1>{campaigns.length}</h1>;
 };
