@@ -1,10 +1,9 @@
 import React from "react";
 
-import "semantic-ui-css/semantic.min.css";
-
 import factory from "../ethereum/campaignFactory";
 import Layout from "../components/Layout";
 import { Card, Button } from "semantic-ui-react";
+import { useRouter } from "next/router";
 
 export const getServerSideProps = async () => {
   const deployedCampaigns = await factory.methods.getDeployedCampaigns().call();
@@ -12,10 +11,12 @@ export const getServerSideProps = async () => {
 };
 
 export default ({ campaigns }) => {
+  const router = useRouter();
+
   const items = campaigns.map((address) => {
     return {
       header: address,
-      description: <a>View Campaign</a>,
+      description: <a href={`/campaigns/${address}`}>View Campaign</a>,
       fluid: true,
     };
   });
@@ -31,6 +32,7 @@ export default ({ campaigns }) => {
           content="Create Campaign"
           icon="add circle"
           primary
+          onClick={() => router.push("/campaigns/create")}
         />
         <Campaigns />
       </div>

@@ -3,5 +3,6 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/": "pages/index.js",
+  "/campaigns/[id]": "pages/campaigns/[id].js",
   "/campaigns/create": "pages/campaigns/create.js"
 }
