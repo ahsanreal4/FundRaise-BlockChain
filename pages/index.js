@@ -3,6 +3,7 @@ import React from "react";
 import "semantic-ui-css/semantic.min.css";
 
 import factory from "../ethereum/campaignFactory";
+import Layout from "../components/Layout";
 import { Card, Button } from "semantic-ui-react";
 
 export const getServerSideProps = async () => {
@@ -22,10 +23,17 @@ export default ({ campaigns }) => {
   const Campaigns = () => <Card.Group centered items={items} />;
 
   return (
-    <div>
-      <h3>Open Campaigns</h3>
-      <Campaigns />
-      <Button content="Create Campaign" icon="add circle" primary />
-    </div>
+    <Layout>
+      <div>
+        <h3>Open Campaigns</h3>
+        <Button
+          floated="right"
+          content="Create Campaign"
+          icon="add circle"
+          primary
+        />
+        <Campaigns />
+      </div>
+    </Layout>
   );
 };
