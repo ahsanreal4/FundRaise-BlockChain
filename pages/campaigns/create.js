@@ -19,8 +19,8 @@ const CreateCampaign = () => {
     setErrorMsg("");
     setLoading(true);
 
-    const accounts = await web3.eth.getAccounts();
     try {
+      const accounts = await web3.eth.getAccounts();
       await factory.methods.createCampaign(minimumAmount).send({
         from: accounts[0],
       });
