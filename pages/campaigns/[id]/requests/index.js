@@ -71,6 +71,7 @@ export default ({ campaignAddress, requests, approversCount }) => {
 
   const RequestRow = ({ request, id }) => {
     const readyToFinalize = request.approvalCount > approversCount / 2;
+    const canApprove = request.approvalCount >= approversCount;
 
     return (
       <Table.Row disabled={request.complete}>
@@ -84,10 +85,11 @@ export default ({ campaignAddress, requests, approversCount }) => {
         <Table.Cell>
           {request.complete ? null : (
             <Button
-              color="green"
+              color={canApprove ? "grey" : "green"}
               loading={approveButtonLoading}
               basic
               onClick={() => onApprove(id)}
+              disabled={canApprove}
             >
               Approve
             </Button>
