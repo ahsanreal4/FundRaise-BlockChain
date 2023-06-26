@@ -1,12 +1,20 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 
 import "semantic-ui-css/semantic.min.css";
 
-import { Container, Menu } from "semantic-ui-react";
+import { Container, Menu, Message } from "semantic-ui-react";
 import { useRouter } from "next/router";
 
 export default (props) => {
   const router = useRouter();
+
+  const [showMetamaskError, setShowMetamaskError] = useState(false);
+
+  useEffect(() => {
+    if (!window.web3?.currentProvider) {
+      setShowMetamaskError(true);
+    }
+  }, []);
 
   const header = useMemo(
     () => (
@@ -27,6 +35,15 @@ export default (props) => {
     <Container>
       {header}
       {props.children}
+      {showMetamaskError ? (
+        <Message
+          error
+          header="Metamask extension was not detected!"
+          content={
+            "Please install the extension and connect to the site before making transactions."
+          }
+        />
+      ) : null}
     </Container>
   );
 };
